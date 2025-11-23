@@ -21,7 +21,7 @@ public class HeaderComponent {
 
     private Color toColor(ColorModel c) {
         if (c == null) return null;
-        return new Color(c.r(), c.g(), c.b());
+        return new Color(c.getR(), c.getG(), c.getB());
     }
 
     public void build() {
