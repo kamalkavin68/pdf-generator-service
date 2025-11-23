@@ -1,5 +1,6 @@
 package com.kamalkavin96.pdf_generator_service.controller;
 
+import com.kamalkavin96.pdf_generator_service.dto.PDFDataDto;
 import com.kamalkavin96.pdf_generator_service.dto.PdfPageSizeResponse;
 import com.kamalkavin96.pdf_generator_service.service.PDFService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PDFController {
     PDFService pdfService;
 
     @PostMapping("/generate")
-    public ResponseEntity<byte[]> generatePDF(@RequestBody JsonNode JsonData){
+    public ResponseEntity<byte[]> generatePDF(@RequestBody PDFDataDto JsonData){
 
         byte[] pdf = pdfService.generate(JsonData);
 

@@ -1,6 +1,7 @@
 package com.kamalkavin96.pdf_generator_service.service;
 
 import com.kamalkavin96.pdf_generator_service.core.PdfGenerator;
+import com.kamalkavin96.pdf_generator_service.dto.PDFDataDto;
 import com.kamalkavin96.pdf_generator_service.dto.PdfPageSizeResponse;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Rectangle;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class PDFService {
 
-    public byte[] generate(JsonNode json){
+    public byte[] generate(PDFDataDto json){
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfGenerator pdfGenerator = new PdfGenerator();
         pdfGenerator.generateSinglePDF(json, out);
