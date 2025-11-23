@@ -44,10 +44,26 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git clone https://huggingface.co/spaces/kamalkavin96/json-to-pdf-generator-service space_repo
+
+          # Install Git LFS
+          sudo apt-get update
+          sudo apt-get install git-lfs -y
+          git lfs install
+
+          # Copy JAR
           cp target/pdfServiceApp.jar space_repo/pdfServiceApp.jar
+
           cd space_repo
+
+          # Track JAR using Git LFS
+          git lfs track "*.jar"
+          git add .gitattributes
+          git add pdfServiceApp.jar
+
+          # Commit changes
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
-          git add pdfServiceApp.jar
-          git commit -m "Sync JAR from GitHub Actions:${{ steps.commits.outputs.messages }}"
+          git commit -m "Sync JAR from GitHub Actions: ${{ steps.commits.outputs.messages }}" || echo "No changes to commit"
+
+          # Push using token
           git push https://kavinkavin:${HF_TOKEN}@huggingface.co/spaces/kamalkavin96/json-to-pdf-generator-service
