@@ -16,6 +16,6 @@ import lombok.NoArgsConstructor;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = HeaderModel.class, name = "header")
 })
-public class PDFElementModel {
+public abstract class PDFElementModel {
     private String type;
 }
