@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "type",
-        visible = true
+        use = JsonTypeInfo.Id.DEDUCTION
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = HeaderModel.class, name = "header")
