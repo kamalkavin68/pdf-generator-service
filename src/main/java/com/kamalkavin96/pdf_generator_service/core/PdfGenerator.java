@@ -2,8 +2,10 @@ package com.kamalkavin96.pdf_generator_service.core;
 
 import com.kamalkavin96.pdf_generator_service.core.components.HeaderComponent;
 import com.kamalkavin96.pdf_generator_service.core.components.PDFConfigComponent;
+import com.kamalkavin96.pdf_generator_service.core.components.ParagraphComponent;
+import com.kamalkavin96.pdf_generator_service.core.model.BaseElementModel;
 import com.kamalkavin96.pdf_generator_service.core.model.HeaderModel;
-import com.kamalkavin96.pdf_generator_service.core.model.PDFElementModel;
+import com.kamalkavin96.pdf_generator_service.core.model.ParagraphModel;
 import com.kamalkavin96.pdf_generator_service.dto.PDFDataDto;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
@@ -19,19 +21,27 @@ public class PdfGenerator {
         document.open();
 
         if (root.getElements() != null) {
-            for (PDFElementModel el : root.getElements()) {
+            for (BaseElementModel el : root.getElements()) {
 
-                if (el.getType().equals("header")) {
+                // ---------- HEADER ----------
+                if ("header".equalsIgnoreCase(el.getType())) {
                     HeaderModel header = (HeaderModel) el;
                     new HeaderComponent(document, header).build();
                     continue;
                 }
 
-                // ░░░ FUTURE:
-                // if (el instanceof ParagraphModel p) new ParagraphComponent(...).build();
-                // if (el instanceof ImageModel img) new ImageComponent(...).build();
+                // ---------- PARAGRAPH ----------
+                if ("paragraph".equalsIgnoreCase(el.getType())) {
+                    ParagraphModel para = (ParagraphModel) el;
+                    new ParagraphComponent(document, para).build();
+                    continue;
+                }
 
+                // ADD MORE TYPES HERE
+                // if ("image".equals(el.getType())) ...
+                // if ("table".equals(el.getType())) ...
             }
+
         }
 
         document.close();
